@@ -1,36 +1,36 @@
 import { useState } from "react";
+import { TodoInput } from "./TodoInput";
 
 export const TodoList = () => {
-  const [text, setText] = useState("");
   const [todoList, setTodoList] = useState([]);
 
-  const addText = (e) => {
-    setText(e.target.value);
-    // console.log(e.target.value);
-  };
-
-  const addTodo = () => {
+  const addTodo = (content) => {
     const newTodoList = [
       ...todoList,
-      { id: crypto.randomUUID(), created_at: Date.now(), content: text },
+      { id: crypto.randomUUID(), created_at: Date.now(), content: content },
     ];
     setTodoList(newTodoList);
-    // console.log(newTodoList);
+    console.log(newTodoList);
+  };
+
+  const deleteTodo = (id) => {
+    const newTodoList = todoList.filter((todo) => todo.id !== id);
+    setTodoList(newTodoList);
   };
 
   console.log("TodoList Rendering");
 
   return (
     <div className="m-auto">
-      <div className="flex">
-        <input className="border" type="text" value={text} onChange={addText} />
-        <button className="border" onClick={addTodo}>
-          追加
-        </button>
-      </div>
+      <TodoInput addTodo={addTodo} />
       <ul className="list-none">
         {todoList.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+          <li key={todo.id}>
+            {todo.content}
+            <button className="border" onClick={() => deleteTodo(todo.id)}>
+              削除
+            </button>
+          </li>
         ))}
       </ul>
     </div>
