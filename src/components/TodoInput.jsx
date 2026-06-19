@@ -1,16 +1,12 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 export const TodoInput = ({ addTodo }) => {
-  const [text, setText] = useState("");
-
-  const addText = (e) => {
-    setText(e.target.value);
-    // console.log(e.target.value);
-  };
+  const inputRef = useRef(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addTodo(text);
+    addTodo(inputRef.current.value);
+    inputRef.current.value = "";
   };
 
   console.log("TodoInput Rendering");
@@ -20,14 +16,13 @@ export const TodoInput = ({ addTodo }) => {
       <div className="flex">
         <form onSubmit={onSubmit}>
           <input
-            placeholder="Add a task"
+            placeholder="Add a new task"
             className="border"
             type="text"
-            value={text}
-            onChange={addText}
+            ref={inputRef}
           />
           <button className="border" type="submit">
-            追加
+            保存
           </button>
         </form>
       </div>
