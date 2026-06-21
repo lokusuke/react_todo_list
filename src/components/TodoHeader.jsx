@@ -15,14 +15,14 @@ export const TodoHeader = () => {
         <h1>React ToDo管理アプリ</h1>
       </div>
       <div className="flex justify-center gap-10 mx-auto my-10 font-bold">
-        <span className="bg-gray-200 rounded-lg p-2">
-          タスク: {todoList.length}
+        <span className="bg-gray-200 rounded-lg p-2 shadow-md">
+          タスク {todoList.length}
         </span>
-        <span className="bg-green-200 rounded-lg p-2">
-          &#x2705;完了: {CompletedTodo}
+        <span className="bg-green-200 rounded-lg p-2 shadow-md">
+          &#x2705;完了 {CompletedTodo}
         </span>
-        <span className="bg-yellow-200 rounded-lg p-2">
-          &#x274c;未完了: {todoList.length - CompletedTodo}
+        <span className="bg-yellow-200 rounded-lg p-2 shadow-md">
+          &#x274c;未完了 {todoList.length - CompletedTodo}
         </span>
       </div>
     </div>

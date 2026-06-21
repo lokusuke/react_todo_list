@@ -51,7 +51,7 @@ export const TodoItem = ({ todo }) => {
           <span>[前の内容: {todo.content}]</span>
           <button
             type="submit"
-            className="rounded-lg p-1 bg-blue-500 text-white"
+            className="rounded-lg p-1 bg-blue-500 text-white shadow-md"
           >
             保存
           </button>
@@ -65,13 +65,13 @@ export const TodoItem = ({ todo }) => {
           />
           <span>{todo.content}</span>
           <button
-            className=" bg-gray-400 rounded-lg p-1 text-white"
+            className=" bg-gray-400 rounded-lg p-1 text-white shadow-md"
             onClick={() => setIsEditing(true)}
           >
             &#x270f;&#xfe0f;編集
           </button>
           <button
-            className=" bg-red-600 text-white rounded-lg p-1 "
+            className=" bg-red-600 text-white rounded-lg p-1 shadow-md"
             onClick={onClickDelete}
           >
             &#x1f5d1;&#xfe0f;削除
