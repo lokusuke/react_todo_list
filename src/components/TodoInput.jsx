@@ -1,11 +1,19 @@
-import { useRef } from "react";
+import { useAtom } from "jotai";
+import { memo, useRef } from "react";
+import { appendTodoAtom } from "../atoms/todoListAtom";
 
-export const TodoInput = ({ addTodo }) => {
+export const TodoInput = memo(() => {
   const inputRef = useRef(null);
+  const [, appendTodo] = useAtom(appendTodoAtom);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addTodo(inputRef.current.value);
+
+    if (!inputRef.current.value.trim()) {
+      alert("ToDoを入力してください!");
+      return;
+    }
+    appendTodo(inputRef.current.value);
     inputRef.current.value = "";
   };
 
@@ -16,7 +24,7 @@ export const TodoInput = ({ addTodo }) => {
       <div className="flex">
         <form onSubmit={onSubmit}>
           <input
-            placeholder="Add a new task"
+            placeholder="タスクを入力してください"
             className="border"
             type="text"
             ref={inputRef}
@@ -28,4 +36,4 @@ export const TodoInput = ({ addTodo }) => {
       </div>
     </div>
   );
-};
+});
