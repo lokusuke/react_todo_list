@@ -14,7 +14,7 @@ export const TodoHeader = () => {
       <div className="flex justify-center mx-auto my-10 font-extrabold text-2xl text-shadow-lg border-b-2 border-gray-200 pb-5">
         <h1>React ToDo管理アプリ</h1>
       </div>
-      <div className="flex justify-center gap-10 mx-auto my-10 font-bold">
+      <div className="flex justify-center items-center gap-10 mx-auto my-10 font-bold">
         <span className="bg-gray-200 rounded-lg p-2 shadow-md">
           タスク {todoList.length}
         </span>
