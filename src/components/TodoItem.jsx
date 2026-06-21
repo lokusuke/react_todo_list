@@ -61,7 +61,7 @@ export const TodoItem = ({ todo }) => {
           <input
             type="checkbox"
             checked={todo.isCompleted}
-            onChange={(e) => updateCheckBox(todo.id, e.target.checked)}
+            onChange={() => updateCheckBox(todo.id)}
           />
           <span>{todo.content}</span>
           <button
