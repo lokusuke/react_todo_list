@@ -57,7 +57,7 @@ export const TodoItem = ({ todo }) => {
           </button>
         </form>
       ) : (
-        <div className="flex  gap-2 p-2 items-center">
+        <div className="flex  gap-2 p-2 items-center border-b-2 border-gray-100">
           <input
             type="checkbox"
             checked={todo.isCompleted}
