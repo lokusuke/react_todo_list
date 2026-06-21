@@ -48,7 +48,7 @@ export const TodoItem = ({ todo }) => {
             ref={inputRef}
             defaultValue={todo.content}
           />
-          <span className="text-gray-500">(今の内容: {todo.content})</span>
+          <span className="text-gray-500">(現在: {todo.content})</span>
           <button
             type="submit"
             className="rounded-lg p-1 bg-blue-500 text-white shadow-md"
