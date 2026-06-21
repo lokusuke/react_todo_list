@@ -42,7 +42,7 @@ export const TodoItem = ({ todo }) => {
   return (
     <li>
       {isEditing ? (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="flex  gap-2">
           <input
             className="border-indigo-500 border-2"
             ref={inputRef}
@@ -52,20 +52,26 @@ export const TodoItem = ({ todo }) => {
           <button type="submit">保存</button>
         </form>
       ) : (
-        <>
+        <div className="flex  gap-2 p-2 items-center">
           <input
             type="checkbox"
             checked={todo.isCompleted}
             onChange={(e) => updateCheckBox(todo.id, e.target.checked)}
           />
           <span>{todo.content}</span>
-          <button className="border" onClick={() => setIsEditing(true)}>
-            編集
+          <button
+            className=" bg-gray-400 rounded-lg p-1 text-white"
+            onClick={() => setIsEditing(true)}
+          >
+            &#x270f;&#xfe0f;編集
           </button>
-          <button className="border" onClick={onClickDelete}>
-            削除
+          <button
+            className=" bg-red-600 text-white rounded-lg p-1"
+            onClick={onClickDelete}
+          >
+            &#x1f5d1;&#xfe0f;削除
           </button>
-        </>
+        </div>
       )}
     </li>
   );

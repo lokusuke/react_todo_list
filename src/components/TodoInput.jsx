@@ -21,15 +21,18 @@ export const TodoInput = memo(() => {
 
   return (
     <div>
-      <div className="flex">
-        <form onSubmit={onSubmit}>
+      <div className="flex justify-center mx-auto my-5">
+        <form onSubmit={onSubmit} className="flex justify-center gap-2">
           <input
             placeholder="タスクを入力してください"
-            className="border"
+            className="border rounded-lg p-1"
             type="text"
             ref={inputRef}
           />
-          <button className="border" type="submit">
+          <button
+            className="border rounded-lg p-1 bg-blue-500 text-white"
+            type="submit"
+          >
             保存
           </button>
         </form>
