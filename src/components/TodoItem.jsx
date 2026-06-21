@@ -42,14 +42,19 @@ export const TodoItem = ({ todo }) => {
   return (
     <li>
       {isEditing ? (
-        <form onSubmit={onSubmit} className="flex  gap-2">
+        <form onSubmit={onSubmit} className="flex  gap-2 items-center">
           <input
             className="border-indigo-500 border-2"
             ref={inputRef}
             defaultValue={todo.content}
           />
-          <span>[{todo.content}]</span>
-          <button type="submit">保存</button>
+          <span>[前の内容: {todo.content}]</span>
+          <button
+            type="submit"
+            className="rounded-lg p-1 bg-blue-500 text-white"
+          >
+            保存
+          </button>
         </form>
       ) : (
         <div className="flex  gap-2 p-2 items-center">
@@ -66,7 +71,7 @@ export const TodoItem = ({ todo }) => {
             &#x270f;&#xfe0f;編集
           </button>
           <button
-            className=" bg-red-600 text-white rounded-lg p-1"
+            className=" bg-red-600 text-white rounded-lg p-1 "
             onClick={onClickDelete}
           >
             &#x1f5d1;&#xfe0f;削除
