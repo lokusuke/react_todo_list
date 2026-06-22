@@ -1,7 +1,11 @@
 import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 // ToDoリストのデータAtomを定義
-export const todoListAtom = atom([]);
+// export const todoListAtom = atom([]);
+
+// LocalStorageにToDoリストを保管
+export const todoListAtom = atomWithStorage("TODO_LIST", []);
 
 // ToDoリストのデータを新規作成する関数Atomを定義（Write-Only）
 export const appendTodoAtom = atom(null, (get, set, text) =>
@@ -56,4 +60,4 @@ export const updateCheckAtom = atom(null, (get, set, id) => {
 });
 
 // ToDoリストの要素数を読み取る関数Atomを定義（Read-Only）
-export const GetTodoListAtom = atom((get) => get(todoListAtom).length, null);
+export const getTodoListAtom = atom((get) => get(todoListAtom).length, null);
