@@ -25,11 +25,14 @@ export const TodoItem = ({ todo }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (!inputRef.current.value.trim()) {
+
+    const trimmedText = inputRef.current.value.trim();
+
+    if (!trimmedText) {
       alert("ToDoを入力してください!");
       return;
     }
-    updateTodo(todo.id, inputRef.current.value);
+    updateTodo(todo.id, trimmedText);
     setIsEditing(false);
   };
 

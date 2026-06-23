@@ -1,12 +1,12 @@
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { getTodoListAtom, todoListAtom } from "../atoms/todoListAtom";
 
 export const TodoHeader = () => {
-  const [todoList] = useAtom(todoListAtom);
-  const [AmountOfTodoItems] = useAtom(getTodoListAtom);
+  const todoList = useAtomValue(todoListAtom); // Atomの値だけ取得するため、useAtomValue()を利用
+  const amountOfTodoItems = useAtomValue(getTodoListAtom);
 
   // 完了済みタスクのカウント関数
-  const CompletedTodo = todoList.reduce((count, todo) => {
+  const completedTodo = todoList.reduce((count, todo) => {
     return todo.isCompleted ? count + 1 : count;
   }, 0);
 
@@ -17,19 +17,15 @@ export const TodoHeader = () => {
       </div>
       <div className="flex justify-center items-center gap-10 mx-auto my-10 font-bold">
         <span className="bg-gray-200 rounded-lg p-2 shadow-md">
-          タスク {AmountOfTodoItems}
+          タスク {amountOfTodoItems}
         </span>
         <span className="bg-green-200 rounded-lg p-2 shadow-md">
-          &#x2705;完了 {CompletedTodo}
+          &#x2705;完了 {completedTodo}
         </span>
         <span className="bg-yellow-200 rounded-lg p-2 shadow-md">
-          &#x274c;未完了 {AmountOfTodoItems - CompletedTodo}
+          &#x274c;未完了 {amountOfTodoItems - completedTodo}
         </span>
       </div>
     </div>
   );
 };
-
-// Memo
-// todoList.lengthとして要素数を取得すればいいのか
-// atomで要素数を取得するget関数を独自に用意して呼ぶべきか

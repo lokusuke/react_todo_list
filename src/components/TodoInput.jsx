@@ -1,19 +1,21 @@
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { memo, useRef } from "react";
 import { appendTodoAtom } from "../atoms/todoListAtom";
 
 export const TodoInput = memo(() => {
   const inputRef = useRef(null);
-  const [, appendTodo] = useAtom(appendTodoAtom);
+  const appendTodo = useSetAtom(appendTodoAtom); // appendTodoAtomの関数のみ取得したいので、useSetAtom()を利用
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // formの仕様によるリロードを回避
 
-    if (!inputRef.current.value.trim()) {
+    const trimmedText = inputRef.current.value.trim();
+
+    if (!trimmedText) {
       alert("ToDoを入力してください!");
       return;
     }
-    appendTodo(inputRef.current.value);
+    appendTodo(trimmedText);
     inputRef.current.value = "";
   };
 

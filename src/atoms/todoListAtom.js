@@ -32,32 +32,52 @@ export const deleteTodoAtom = atom(null, (get, set, id) => {
   set(todoListAtom, filteredTodo);
 });
 
-// Todoリストのデータを更新する関数Atomを定義（Write-Only）
-export const updateTodoAtom = atom(null, (get, set, id, text) => {
-  // 現在のTodoリストを取得
-  const currentTodo = get(todoListAtom);
+// ToDoリストのデータを更新するヘルパー関数を定義
+const updateById = (list, id, updater) =>
+  list.map((todo) => (todo.id === id ? { ...todo, ...updater(todo) } : todo));
 
-  // 削除対象のTodoのみを除外
-  const updatedTodo = currentTodo.map((todo) =>
-    todo.id === id ? { ...todo, content: text } : todo,
-  );
+// ヘルパー関数をつかって、該当idのtodoを更新
+export const updateTodoAtom = atom(null, (get, set, id, text) =>
+  set(
+    todoListAtom,
+    updateById(get(todoListAtom), id, () => ({ content: text })),
+  ),
+);
 
-  // 更新後の新配列をセット
-  set(todoListAtom, updatedTodo);
-});
+// ヘルパー関数をつかって、該当idのタスクを完了済みにする
+export const updateCheckAtom = atom(null, (get, set, id) =>
+  set(
+    todoListAtom,
+    updateById(get(todoListAtom), id, (t) => ({ isCompleted: !t.isCompleted })),
+  ),
+);
 
-export const updateCheckAtom = atom(null, (get, set, id) => {
-  // 現在のTodoリストを取得
-  const currentTodo = get(todoListAtom);
+// // Todoリストのデータを更新する関数Atomを定義（Write-Only）
+// export const updateTodoAtom = atom(null, (get, set, id, text) => {
+//   // 現在のTodoリストを取得
+//   const currentTodo = get(todoListAtom);
 
-  // 削除対象のTodoのみを除外
-  const updatedTodo = currentTodo.map((todo) =>
-    todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
-  );
+//   // 更新対象のtodoを検索して書き換える
+//   const updatedTodo = currentTodo.map((todo) =>
+//     todo.id === id ? { ...todo, content: text } : todo,
+//   );
 
-  // 更新後の新配列をセット
-  set(todoListAtom, updatedTodo);
-});
+//   // 更新後の新配列をセット
+//   set(todoListAtom, updatedTodo);
+// });
+
+// export const updateCheckAtom = atom(null, (get, set, id) => {
+//   // 現在のTodoリストを取得
+//   const currentTodo = get(todoListAtom);
+
+//   // 更新対象のtodoを検索して書き換える
+//   const updatedTodo = currentTodo.map((todo) =>
+//     todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
+//   );
+
+//   // 更新後の新配列をセット
+//   set(todoListAtom, updatedTodo);
+// });
 
 // ToDoリストの要素数を読み取る関数Atomを定義（Read-Only）
 export const getTodoListAtom = atom((get) => get(todoListAtom).length, null);
