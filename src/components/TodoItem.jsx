@@ -1,14 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSetAtom } from "jotai";
 import {
   deleteTodoAtom,
   updateTodoAtom,
   updateCheckAtom,
 } from "../atoms/todoListAtom";
+import { useForm } from "react-hook-form";
 
 export const TodoItem = ({ todo }) => {
+  // useForm
+  const { register, handleSubmit } = useForm({
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
+
   // Todo個別にもつHooks
-  const inputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
 
   // Todoリストの更新関数をAtomから取得
@@ -16,23 +22,8 @@ export const TodoItem = ({ todo }) => {
   const updateTodo = useSetAtom(updateTodoAtom);
   const updateCheckBox = useSetAtom(updateCheckAtom);
 
-  // 編集切り替え時に入力欄にフォーカス
-  useEffect(() => {
-    if (isEditing) {
-      inputRef.current.focus();
-    }
-  }, [isEditing]);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const trimmedText = inputRef.current.value.trim();
-
-    if (!trimmedText) {
-      alert("ToDoを入力してください!");
-      return;
-    }
-    updateTodo(todo.id, trimmedText);
+  const onSubmit = ({ content }) => {
+    updateTodo(todo.id, content);
     setIsEditing(false);
   };
 
@@ -45,11 +36,16 @@ export const TodoItem = ({ todo }) => {
   return (
     <li>
       {isEditing ? (
-        <form onSubmit={onSubmit} className="flex  gap-2 items-center">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex  gap-2 items-center"
+        >
           <input
             className="border-indigo-500 border-2"
-            ref={inputRef}
             defaultValue={todo.content}
+            {...register("content", {
+              required: "タスクは必須です",
+            })}
           />
           <span className="text-gray-500">(現在: {todo.content})</span>
           <button
