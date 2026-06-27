@@ -16,6 +16,7 @@ export const appendTodoAtom = atom(null, (get, set, text) =>
       created_at: Date.now(), // 作成時間
       content: text, // Todoの内容
       isCompleted: false, // 完了済みかどうか
+      isEditing: false, // 編集フラグ
     },
   ]),
 );
